@@ -6,37 +6,35 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
   :root{ --accent:#ff4d4d; --bg:#0a0a0a; --vein:#1a1a1a; --glow:#00f6ff}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:#eee;font-family:"Inter",sans-serif;overflow:hidden;}
-  canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;}
-  #main{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;pointer-events:none;}
-  .node{position:absolute;pointer-events:all;cursor:pointer;transition:transform .4s;}
-  .node:focus{outline:2px solid var(--accent);}
-  .node:hover{transform:scale(1.15);}
-  .panel{position:absolute;background:rgba(20,20,20,.85);border:1px solid var(--accent);border-radius:8px;padding:18px 24px;max-width:290px;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;pointer-events:none;backdrop-filter:blur(6px);}
-  .panel.active{opacity:1;transform:translateY(0);pointer-events:all;}
-  .panel h3{color:var(--accent);margin-bottom:8px;font-size:1.1rem;}
-  .panel ul{list-style:none;font-size:.9rem;line-height:1.5;}
-  .panel li{margin:4px 0;padding-left:12px;position:relative;}
-  .panel li:before{content:"";position:absolute;left:0;top:8px;width:4px;height:4px;background:var(--glow);border-radius:50%;}
-  #contacts{position:fixed;bottom:20px;right:20px;z-index:3;display:flex;gap:12px;opacity:0;transition:opacity .4s;}
-  #contacts.show{opacity:1;}
-  #contacts a{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.08);transition:background .3s;}
-  #contacts a:hover{background:var(--accent);}
-  #contacts svg{width:18px;height:18px;fill:#fff;}
-  @media (max-width: 700px) {
-    .panel{max-width:94vw;padding:10px 10px;}
-    .node{font-size:.9rem;}
-  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:#eee;font-family:"Inter",sans-serif;overflow:hidden}
+  canvas{position:fixed;inset:0;width:100%;height:100%;z-index:1}
+  #main{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;pointer-events:none}
+  .node{position:absolute;pointer-events:all;cursor:pointer;transition:transform .4s}
+  .node:hover{transform:scale(1.15)}
+  .panel{position:absolute;background:rgba(20,20,20,.85);border:1px solid var(--accent);border-radius:8px;padding:18px 24px;max-width:280px;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;pointer-events:none;backdrop-filter:blur(6px)}
+  .panel.active{opacity:1;transform:translateY(0);pointer-events:all}
+  .panel h3{color:var(--accent);margin-bottom:8px;font-size:1.1rem}
+  .panel ul{list-style:none;font-size:.9rem;line-height:1.5}
+  .panel li{margin:4px 0;padding-left:12px;position:relative}
+  .panel li:before{content:"";position:absolute;left:0;top:8px;width:4px;height:4px;background:var(--glow);border-radius:50%}
+  #contacts{position:fixed;bottom:20px;right:20px;z-index:3;display:flex;gap:12px;opacity:0;transition:opacity .4s}
+  #contacts.show{opacity:1}
+  #contacts a{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.08);transition:background .3s}
+  #contacts a:hover{background:var(--accent)}
+  #contacts svg{width:18px;height:18px;fill:#fff}
 </style>
 </head>
 <body>
 <canvas id="canvas"></canvas>
-<div id="main">
-  <div class="node" data-role="booking" style="left:50%;top:45%" tabindex="0" aria-label="Booking.com Node">Booking.com</div>
-  <div class="node" data-role="mongodb" style="left:50%;top:55%" tabindex="0" aria-label="MongoDB Node">MongoDB</div>
 
-  <div id="booking-panel" class="panel" style="left:calc(50% + 90px);top:40%" aria-live="polite">
+<div id="main">
+  <!-- Timeline nodes -->
+  <div class="node" data-role="booking" style="left:50%;top:45%">Booking.com</div>
+  <div class="node" data-role="mongodb" style="left:50%;top:55%">MongoDB</div>
+
+  <!-- Expandable panels -->
+  <div id="booking-panel" class="panel" style="left:calc(50% + 90px);top:40%">
     <h3>Senior Talent Partner</h3>
     <ul>
       <li>Built FinTech vertical from scratch</li>
@@ -45,7 +43,8 @@
       <li>Tableau dashboards adopted by leadership</li>
     </ul>
   </div>
-  <div id="mongodb-panel" class="panel" style="left:calc(50% - 320px);top:50%" aria-live="polite">
+
+  <div id="mongodb-panel" class="panel" style="left:calc(50% - 320px);top:50%">
     <h3>Senior Talent Sourcer</h3>
     <ul>
       <li>Engineering & Customer-Engineering pipelines</li>
@@ -55,6 +54,8 @@
     </ul>
   </div>
 </div>
+
+<!-- Contact capillaries -->
 <div id="contacts">
   <a href="https://linkedin.com/in/amitmoun" target="_blank" aria-label="LinkedIn">
     <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -63,87 +64,72 @@
     <svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.456l-4.616-5.715z"/></svg>
   </a>
 </div>
+
 <script>
-const canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
-let w = innerWidth, h = innerHeight, t = 0, mouse = { x: w / 2, y: h / 2, active: !1 };
-let bgColor = getComputedStyle(document.body).getPropertyValue('--bg') || '#0a0a0a';
+/* ---- mini engine ---- */
+const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');
+let w=innerWidth,h=innerHeight,t=0,mouse={x:w/2,y:h/2,active:!1};
+canvas.width=w; canvas.height=h;
+addEventListener('resize',()=>{w=innerWidth;h=innerHeight;canvas.width=w;canvas.height=h;});
+addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;mouse.active=!0});
+addEventListener('mouseleave',()=>mouse.active=!1);
 
-function resizeAll() {
-  w = innerWidth; h = innerHeight; canvas.width = w; canvas.height = h;
-}
-resizeAll();
-addEventListener('resize', resizeAll);
-
-addEventListener('mousemove', e => {
-  mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
-  contacts.classList.add('show');
-});
-addEventListener('mouseleave', () => {
-  mouse.active = false;
-  contacts.classList.remove('show');
-});
-// Touch support for mobile
-canvas.addEventListener('touchstart', e => { contacts.classList.add('show'); });
-canvas.addEventListener('touchend', e => { contacts.classList.remove('show'); });
-
-function aurora() {
+/* ---- aurora background ---- */
+function aurora(){
   ctx.save();
-  const g = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h));
-  g.addColorStop(0, `hsla(${Math.sin(t * 0.05) * 30 + 200},100%,50%,0.12)`);
-  g.addColorStop(0.5, `hsla(${Math.sin(t * 0.07) * 40 + 280},100%,50%,0.08)`);
-  g.addColorStop(1, `hsla(${Math.sin(t * 0.06) * 20 + 160},100%,50%,0.04)`);
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, w, h);
+  const g=ctx.createRadialGradient(w/2,h/2,0,w/2,h/2,Math.max(w,h));
+  g.addColorStop(0,`hsla(${Math.sin(t*0.05)*30+200},100%,50%,0.12)`);
+  g.addColorStop(0.5,`hsla(${Math.sin(t*0.07)*40+280},100%,50%,0.08)`);
+  g.addColorStop(1,`hsla(${Math.sin(t*0.06)*20+160},100%,50%,0.04)`);
+  ctx.fillStyle=g;
+  ctx.fillRect(0,0,w,h);
   ctx.restore();
 }
-function heartbeat() {
-  const cx = w / 2, cy = h / 2;
-  let beat = Math.sin(t * 0.04) * 40 + 60;
-  let dist = Math.abs(mouse.y - cy) + Math.abs(mouse.x - cx);
-  if (dist < 180) beat *= 0.6;
+
+/* ---- heartbeat timeline ---- */
+function heartbeat(){
+  const cx=w/2,cy=h/2,beat=Math.sin(t*0.04)*40+60; // 60-100 bpm illusion
   ctx.save();
-  ctx.strokeStyle = '#ff4d4d';
-  ctx.lineWidth = 3;
-  ctx.globalAlpha = .9;
+  ctx.strokeStyle='#ff4d4d';
+  ctx.lineWidth=3;
+  ctx.globalAlpha=.9;
   ctx.beginPath();
-  ctx.moveTo(cx - 200, cy);
-  for(let i = 0; i < 400; i++){
-    const x = cx - 200 + i,
-      amp = Math.sin((i / 30) - t * 0.04) * beat * 0.3,
-      pulse = Math.sin((i / 10) - t * 0.2) * 10;
-    ctx.lineTo(x, cy + amp + pulse);
+  ctx.moveTo(cx-200,cy);
+  for(let i=0;i<400;i++){
+    const x=cx-200+i,amp=Math.sin((i/30)-t*0.04)*beat*0.3,pulse=Math.sin((i/10)-t*0.2)*10;
+    ctx.lineTo(x,cy+amp+pulse);
   }
   ctx.stroke();
   ctx.restore();
-  for(let n of [0.25, 0.75]) {
-    let px = cx - 200 + n * 400,
-        py = cy + Math.sin((n * 400 / 30) - t * 0.04) * beat * 0.3;
-    for(let i=0;i<16;i++){
-      ctx.save();
-      ctx.fillStyle=`hsla(${280+i*6+t*2},100%,70%,${Math.random()*0.15+0.05})`;
-      ctx.beginPath();
-      ctx.arc(px+Math.cos(i*0.4+t*0.07)*15,py+Math.sin(i*0.52+t*0.05)*12,Math.random()*2+0.5,0,Math.PI*2);
-      ctx.fill(); ctx.restore();
-    }
-  }
 }
-const nodes = document.querySelectorAll('.node');
-const panels = {
-  booking: document.getElementById('booking-panel'),
-  mongodb: document.getElementById('mongodb-panel')
+
+/* ---- vein nodes & panels ---- */
+const nodes=document.querySelectorAll('.node');
+const panels={
+  booking:document.getElementById('booking-panel'),
+  mongodb:document.getElementById('mongodb-panel')
 };
-nodes.forEach(n => {
-  n.addEventListener('mouseenter', () => { const key = n.dataset.role; if (panels[key]) panels[key].classList.add('active'); });
-  n.addEventListener('mouseleave', () => { const key = n.dataset.role; if (panels[key]) panels[key].classList.remove('active'); });
-  n.addEventListener('focus', () => { const key = n.dataset.role; if (panels[key]) panels[key].classList.add('active'); });
-  n.addEventListener('blur', () => { const key = n.dataset.role; if (panels[key]) panels[key].classList.remove('active'); });
-  n.addEventListener('keydown', (e) => { if(e.key === 'Enter'){ const key = n.dataset.role; if (panels[key]) panels[key].classList.toggle('active'); } });
+nodes.forEach(n=>{
+  n.addEventListener('mouseenter',()=>{
+    const key=n.dataset.role;
+    if(panels[key]) panels[key].classList.add('active');
+  });
+  n.addEventListener('mouseleave',()=>{
+    const key=n.dataset.role;
+    if(panels[key]) panels[key].classList.remove('active');
+  });
 });
-const contacts = document.getElementById('contacts');
-function loop() {
+
+/* ---- contact capillaries ---- */
+const contacts=document.getElementById('contacts');
+addEventListener('mousemove',()=>contacts.classList.add('show'));
+addEventListener('mouseleave',()=>contacts.classList.remove('show'));
+
+/* ---- main loop ---- */
+function loop(){
   t++;
-  ctx.fillStyle = bgColor;
-  ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle=var(--bg);
+  ctx.fillRect(0,0,w,h);
   aurora();
   heartbeat();
   requestAnimationFrame(loop);
